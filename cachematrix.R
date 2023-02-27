@@ -11,13 +11,13 @@ makeCacheMatrix <- function(x = matrix()) {
 	}
 	get <- function() x
 	setSolved <- function(solved ) s <<- solved 
-	getSolved <- function() s
+	getSolved <- function() return(s)
 	return(list(set = set, get = get,
 		setSolved = setSolved, getSolved = getSolved))
 }
 
 
-## returns another CacheMatrix, witch is inversion of argument matrix
+## returns another CacheMatrix, that is inversion of argument matrix
 
 cacheSolve <- function(x, ...) {
 	if(!is.null(x$getSolved()))
