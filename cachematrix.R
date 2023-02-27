@@ -1,15 +1,33 @@
-## Put comments here that give an overall description of what your
+## Implements matrix with cachable inversion operation
 ## functions do
 
-## Write a short comment describing this function
+## Makes matrix with cachable inversion
 
 makeCacheMatrix <- function(x = matrix()) {
-
+	s <- NULL
+	set <- function(y) {
+		x <<- y
+		s <<- NULL
+	}
+	get <- function() x
+	setSolved <- function(solved ) s <<- solved 
+	getSolved <- function() s
+	return(list(set = set, get = get,
+		setSolved = setSolved, getSolved = getSolved))
 }
 
 
-## Write a short comment describing this function
+## returns another CacheMatrix, witch is inversion of argument matrix
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+	if(!is.null(x$getSolved()))
+	{
+		return(x$getSolved())
+	}
+	s <- solve(x$get())
+
+	res <- makeCacheMatrix(s)
+	res$setSolved(x$get()) 
+	x$setSolved(s)
+	return(res)
 }
